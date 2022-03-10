@@ -1,30 +1,9 @@
-import { AfterViewInit,Component, Input  } from '@angular/core';
-import { MatInputModule } from "@angular/material/input";
-import { MatPaginatorModule } from "@angular/material/paginator";
-import {MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatSortModule } from "@angular/material/sort";
-import { MatTableModule } from "@angular/material/table";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { AfterViewInit,Component, Input, ViewChild  } from '@angular/core';
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { DataGrid } from 'src/app/interfaces/datagrid';
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -32,15 +11,38 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 
-export class GridComponent  {
-  //@Input() headers!: string[];
-  //@Input() dataService:any=[];
+export class GridComponent implements AfterViewInit{
+  @Input() dataService:any=[];
+  public edad!:number;
+  displayedColumns: string[] = ['name','dateOfBirth','patronus', 'image'];
+  public dataSource!: MatTableDataSource<DataGrid>;
 
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() { }
 
+  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+
+  ngAfterViewInit(): void {
+   
+  }    
+
+   getAge(dateString:string):any
+  {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      {
+          age--;
+      }
+      if(Number.isNaN(age)){
+        return '';
+  
+      }
+      return age;
+  }
 
 }

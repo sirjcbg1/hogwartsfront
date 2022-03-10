@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Personajes } from  '../interfaces/personajes';
+import { DataGrid } from  '../interfaces/datagrid';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,10 +10,10 @@ export class PersonajesService {
   constructor(private http:HttpClient) {
   }
 
-  getPersonajes(house:string):Observable<Personajes[]>{
-    return this.http.get<Personajes[]>(this.url+"/house/"+house);
+  getPersonajes(house:string):Observable<DataGrid[]>{
+    return this.http.get<DataGrid[]>(this.url+"/house/"+house);
   //  return this.http.get<Personajes[]>('http://hp-api.herokuapp.com/api/characters/house/slytherin');
-
+    
     
   }
 }

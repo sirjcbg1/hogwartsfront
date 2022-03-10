@@ -1,0 +1,44 @@
+<mat-card class="contact-card">
+    <mat-card-header>
+      <mat-card-title>Nuevo Estudiante</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form novalidate  [formGroup]="form" (ngSubmit)="submit()" >
+      <mat-form-field>
+        <input matInput placeholder="name"  class="form-control" name="name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" >
+      </mat-form-field>
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">El campo name es Obligatorio</div>
+      </div>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="patronus" class="form-control"  formControlName="patronus" [ngClass]="{ 'is-invalid': submitted && f.patronus.errors }">
+      </mat-form-field>
+      <div *ngIf="submitted && f.patronus.errors" class="invalid-feedback">
+        <div *ngIf="f.patronus.errors.required">El campo patronus es Obligatorio</div>
+      </div>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="age" class="form-control"  formControlName="age" >
+      </mat-form-field>
+      <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+        <div *ngIf="f.age.errors.required">El campo age es Obligatorio</div>
+      </div>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="image" class="form-control"  formControlName="image" >
+      </mat-form-field>
+      <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+        <div *ngIf="f.image.errors.required">El campo image es Obligatorio</div>
+      </div>
+      <br>
+      <button id="submit" mat-raised-button type="submit" color="primary">Guardar</button>
+      </form>
+      <br>
+      <mat-card-content>
+        <div class="mat-elevation-z1" >
+          <app-grid [dataService]="dataSource"></app-grid>
+        </div>
+    </mat-card-content>
+    </mat-card-content>
+  </mat-card> 

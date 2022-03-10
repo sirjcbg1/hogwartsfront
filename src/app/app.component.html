@@ -2,4 +2,23 @@
     <img src="../assets/logo.png" height="60px">
     Hogwarts School
   </mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-button [matMenuTriggerFor]="aboveMenu">Estudiantes</button>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+      <button mat-menu-item><a href="/estudiantes">Listado</a></button>
+      <button mat-menu-item><a href="/crear">Nuevo</a></button>
+    </mat-menu>
+    
+    <button mat-button [matMenuTriggerFor]="belowMenu">Personajes</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item><a href="/personajes">Listado</a></button>
+    </mat-menu>
+    
+    <button mat-button [matMenuTriggerFor]="belowMenuProfesor">Profesores</button>
+    <mat-menu #belowMenuProfesor="matMenu" yPosition="below">
+      <button mat-menu-item><a href="/profesores">Listado</a></button>
+    </mat-menu>
+    
+    
+  </mat-toolbar-row>
   <router-outlet></router-outlet>
